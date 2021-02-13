@@ -8,7 +8,7 @@
 
 class SpriteSheet;
 
-static class AssetManager
+class AssetManager
 {
 public:
 	// delete the copy constructor

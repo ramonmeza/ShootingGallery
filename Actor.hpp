@@ -8,7 +8,7 @@ class Actor
 {
 public:
 	virtual void ProcessInputs() = 0;
-	virtual void Update(sf::Int32 deltaTime) = 0;
+	virtual void Update(float deltaTime) = 0;
 };
 
 #endif // ACTOR_HPP

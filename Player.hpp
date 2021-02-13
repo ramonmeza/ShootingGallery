@@ -14,7 +14,7 @@ public:
 	~Player();
 
 	virtual void ProcessInputs();
-	virtual void Update(sf::Int32 deltaTime);
+	virtual void Update(float deltaTime);
 
 protected:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -31,7 +31,7 @@ void Player::ProcessInputs()
 
 }
 
-void Player::Update(sf::Int32 deltaTime)
+void Player::Update(float deltaTime)
 {
 	sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(Game::Instance().GetWindow()));
 	m_Crosshair->setPosition(mousePos);

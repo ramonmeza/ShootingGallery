@@ -1,10 +1,15 @@
 #include "Game.hpp"
 #include "AssetManager.hpp"
 #include "Player.hpp"
+#include "Target.hpp"
+
+#include <string>
 
 Game::Game() :
 	m_Window(sf::VideoMode(918, 515), "Shooting Gallery")
 {
+	std::srand(std::time(nullptr));
+
 	// load assets
 	AssetManager::Instance().LoadSpriteSheet("HUD", "textures/spritesheet_hud.xml");
 	AssetManager::Instance().LoadSpriteSheet("Objects", "textures/spritesheet_objects.xml");
@@ -12,12 +17,19 @@ Game::Game() :
 
 	// create actors
 	m_Player = new Player();
+	m_Target = new Target(
+		Target::TargetTextureNames[std::rand() % 6],
+		Target::StandTextureNames[std::rand() % 3],
+		sf::Vector2f(400, 400));
 }
 
 Game::~Game()
 {
 	delete m_Player;
 	m_Player = nullptr;
+
+	delete m_Target;
+	m_Target = nullptr;
 }
 
 Game& Game::Instance()
@@ -50,7 +62,8 @@ void Game::Run(sf::Int32 minFPS)
 		elapsedTime += clock.restart();
 		while (elapsedTime >= timePerFrame)
 		{
-			Update(timePerFrame.asMilliseconds());
+			float deltaTime = timePerFrame.asMilliseconds() * 0.001f;
+			Update(deltaTime);
 			elapsedTime -= timePerFrame;
 		}
 
@@ -70,15 +83,18 @@ void Game::ProcessWindowEvents(sf::Event::EventType eventType)
 
 void Game::ProcessInputs()
 {
+	m_Target->ProcessInputs();
 	m_Player->ProcessInputs();
 }
 
-void Game::Update(sf::Int32 deltaTime)
+void Game::Update(float deltaTime)
 {
+	m_Target->Update(deltaTime);
 	m_Player->Update(deltaTime);
 }
 
 void Game::Render()
 {
+	m_Window.draw(*m_Target);
 	m_Window.draw(*m_Player);
 }

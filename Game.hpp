@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 class Player;
+class Target;
 
 class Game
 {
@@ -40,13 +41,14 @@ private:
 
 	void ProcessWindowEvents(sf::Event::EventType eventType);
 	void ProcessInputs();
-	void Update(sf::Int32 deltaTime);
+	void Update(float deltaTime);
 	void Render();
 
 private:
 	sf::RenderWindow m_Window;
 
 	Player* m_Player;
+	Target* m_Target;
 };
 
 #endif // GAME_HPP
